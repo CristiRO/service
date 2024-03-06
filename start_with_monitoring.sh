@@ -3,4 +3,4 @@ set -x
 
 source pre-start-monitoring.sh
 
-docker compose --profile monitoring up -d 
+docker compose --profile monitoring,mongo,hello-service up -d 

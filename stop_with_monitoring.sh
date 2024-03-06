@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
 
-docker compose --profile monitoring down 
+docker compose --profile monitoring,mongo,hello-service down 
