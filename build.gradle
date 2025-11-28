@@ -49,6 +49,7 @@ dependencies {
 
 	//	E2E tests
 	runtimeOnly "org.junit.vintage:junit-vintage-engine:$junitVersion"
+	testImplementation 'org.apache.httpcomponents.client5:httpclient5:5.4.1'
 	testImplementation "io.cucumber:cucumber-core:$cucumberVersion"
 	testImplementation "io.cucumber:cucumber-java:$cucumberVersion"
 	testImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
@@ -91,14 +92,14 @@ configurations {
 task testE2E() {
 	dependsOn assemble, testClasses
 	doLast {
-		providers.javaexec {
+		javaexec {
 			mainClass.set("io.cucumber.core.cli.Main")
-			classpath(configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output)
-			args([
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = [
 					'--plugin', 'pretty',
 					'--plugin', 'html:target/cucumber-report.html',
-					'--glue', 'ro.unibuc.hello.e2e.steps',
-					'src/test/resources'])
+					'--glue', 'ro.unibuc.hello.e2e',
+					'src/test/resources']
 		}
 	}
 }
