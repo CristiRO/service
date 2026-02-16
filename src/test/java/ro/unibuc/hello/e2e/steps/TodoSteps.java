@@ -38,7 +38,7 @@ public class TodoSteps {
         // Delete todos first (they reference users)
         for (String todoId : createdTodoIds) {
             try {
-                restTemplate.delete(BASE_URL + "/todos/" + todoId);
+                restTemplate.delete(BASE_URL + "/api/todos/" + todoId);
             } catch (Exception e) {
                 // Ignore errors during cleanup
             }
@@ -48,7 +48,7 @@ public class TodoSteps {
         // Then delete users
         for (String userId : createdUserIds) {
             try {
-                restTemplate.delete(BASE_URL + "/users/" + userId);
+                restTemplate.delete(BASE_URL + "/api/users/" + userId);
             } catch (Exception e) {
                 // Ignore errors during cleanup
             }
@@ -58,14 +58,16 @@ public class TodoSteps {
 
     @Given("a user named {word} with email {word}")
     public void createUser(String name, String email) throws Exception {
-        CreateUserRequest request = new CreateUserRequest(name, email);
+        CreateUserRequest request = new CreateUserRequest();
+        request.setName(name);
+        request.setEmail(email);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<CreateUserRequest> entity = new HttpEntity<>(request, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(BASE_URL + "/users", entity, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(BASE_URL + "/api/users", entity, String.class);
         UserEntity user = objectMapper.readValue(response.getBody(), UserEntity.class);
-        createdUserIds.add(user.id());
+        createdUserIds.add(user.getId());
     }
 
     @When("the client creates a todo {string} for {word}")
@@ -75,7 +77,7 @@ public class TodoSteps {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<CreateTodoRequest> entity = new HttpEntity<>(request, headers);
 
-        latestResponse = restTemplate.postForEntity(BASE_URL + "/todos", entity, String.class);
+        latestResponse = restTemplate.postForEntity(BASE_URL + "/api/todos", entity, String.class);
         TodoResponse todo = objectMapper.readValue(latestResponse.getBody(), TodoResponse.class);
         createdTodoIds.add(todo.id());
         lastCreatedTodoId = todo.id();
@@ -88,7 +90,7 @@ public class TodoSteps {
 
     @Then("the client can retrieve {int} todo(s) for {word}")
     public void verifyTodoCount(int count, String email) throws Exception {
-        String url = BASE_URL + "/todos?assigneeEmail=" + email;
+        String url = BASE_URL + "/api/todos?assigneeEmail=" + email;
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
         List<TodoResponse> todos = objectMapper.readValue(response.getBody(), new TypeReference<List<TodoResponse>>() {});
@@ -102,7 +104,7 @@ public class TodoSteps {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<AssignTodoRequest> entity = new HttpEntity<>(request, headers);
 
-        restTemplate.exchange(BASE_URL + "/todos/" + lastCreatedTodoId + "/assignee",
+        restTemplate.exchange(BASE_URL + "/api/todos/" + lastCreatedTodoId + "/assignee",
                 HttpMethod.PATCH, entity, String.class);
     }
 
@@ -112,12 +114,12 @@ public class TodoSteps {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Boolean> entity = new HttpEntity<>(true, headers);
 
-        restTemplate.patchForObject(BASE_URL + "/todos/" + lastCreatedTodoId + "/done", entity, String.class);
+        restTemplate.patchForObject(BASE_URL + "/api/todos/" + lastCreatedTodoId + "/done", entity, String.class);
     }
 
     @Then("the todo {string} for {word} is marked as done")
     public void verifyTodoIsDone(String description, String email) throws Exception {
-        String url = BASE_URL + "/todos?assigneeEmail=" + email;
+        String url = BASE_URL + "/api/todos?assigneeEmail=" + email;
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
         List<TodoResponse> todos = objectMapper.readValue(response.getBody(), new TypeReference<List<TodoResponse>>() {});

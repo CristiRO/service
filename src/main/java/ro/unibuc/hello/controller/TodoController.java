@@ -13,7 +13,7 @@ import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.TodoService;
 
 @RestController
-@RequestMapping("/todos")
+@RequestMapping("/api/todos")
 public class TodoController {
 
     @Autowired

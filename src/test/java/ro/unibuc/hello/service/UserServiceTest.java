@@ -49,8 +49,8 @@ class UserServiceTest {
 
         // Assert
         assertEquals(2, result.size());
-        assertEquals("Alice", result.get(0).name());
-        assertEquals("Bob", result.get(1).name());
+        assertEquals("Alice", result.get(0).getName());
+        assertEquals("Bob", result.get(1).getName());
     }
 
     @Test
@@ -64,8 +64,8 @@ class UserServiceTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals("Alice", result.name());
-        assertEquals("alice@example.com", result.email());
+        assertEquals("Alice", result.getName());
+        assertEquals("alice@example.com", result.getEmail());
     }
 
     @Test
@@ -80,7 +80,10 @@ class UserServiceTest {
     @Test
     void testCreateUser() {
         // Arrange
-        CreateUserRequest request = new CreateUserRequest("Alice", "alice@example.com");
+        CreateUserRequest request = new CreateUserRequest();
+        request.setName("Alice");
+        request.setEmail("alice@example.com");
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
         when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // Act
@@ -88,9 +91,9 @@ class UserServiceTest {
 
         // Assert
         assertNotNull(result);
-        assertNotNull(result.id());
-        assertEquals("Alice", result.name());
-        assertEquals("alice@example.com", result.email());
+        assertNotNull(result.getId());
+        assertEquals("Alice", result.getName());
+        assertEquals("alice@example.com", result.getEmail());
         verify(userRepository, times(1)).save(any(UserEntity.class));
     }
 
@@ -106,9 +109,9 @@ class UserServiceTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals("1", result.id());
-        assertEquals("Alicia", result.name());
-        assertEquals("alice@example.com", result.email());
+        assertEquals("1", result.getId());
+        assertEquals("Alicia", result.getName());
+        assertEquals("alice@example.com", result.getEmail());
     }
 
     @Test

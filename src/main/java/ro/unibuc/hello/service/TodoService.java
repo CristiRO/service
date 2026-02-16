@@ -26,7 +26,7 @@ public class TodoService {
 
     public List<TodoResponse> getTodosByUserEmail(String email) throws EntityNotFoundException {
         UserEntity user = userService.getUserByEmail(email);
-        List<TodoEntity> todos = todoRepository.findByAssignedUserId(user.id());
+        List<TodoEntity> todos = todoRepository.findByAssignedUserId(user.getId());
         return todos.stream()
                 .map(todo -> toResponse(todo, user))
                 .toList();
@@ -45,7 +45,7 @@ public class TodoService {
             UUID.randomUUID().toString(),
             request.description(),
             false,
-            assignee.id()
+            assignee.getId()
         );
         TodoEntity saved = todoRepository.save(todo);
         return toResponse(saved, assignee);
@@ -62,7 +62,7 @@ public class TodoService {
     public TodoResponse assign(String id, AssignTodoRequest request) throws EntityNotFoundException {
         TodoEntity existing = getEntityById(id);
         UserEntity newAssignee = userService.getUserByEmail(request.newAssigneeEmail());
-        TodoEntity updated = new TodoEntity(id, existing.description(), existing.done(), newAssignee.id());
+        TodoEntity updated = new TodoEntity(id, existing.description(), existing.done(), newAssignee.getId());
         TodoEntity saved = todoRepository.save(updated);
         return toResponse(saved, newAssignee);
     }
@@ -92,8 +92,8 @@ public class TodoService {
             todo.id(),
             todo.description(),
             todo.done(),
-            assignee.name(),
-            assignee.email()
+            assignee.getName(),
+            assignee.getEmail()
         );
     }
 }

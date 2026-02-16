@@ -27,19 +27,21 @@ public class UserService {
     }
 
     public UserEntity createUser(CreateUserRequest request) {
-        UserEntity user = new UserEntity(
-            UUID.randomUUID().toString(),
-            request.name(),
-            request.email()
-        );
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists: " + request.getEmail());
+        }
+        UserEntity user = new UserEntity();
+        user.setId(UUID.randomUUID().toString());
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
         return userRepository.save(user);
     }
 
     public UserEntity changeName(String id, String newName) throws EntityNotFoundException {
         UserEntity existing = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
-        UserEntity updated = new UserEntity(id, newName, existing.email());
-        return userRepository.save(updated);
+        existing.setName(newName);
+        return userRepository.save(existing);
     }
 
     public void deleteUser(String id) throws EntityNotFoundException {
@@ -50,10 +52,7 @@ public class UserService {
     }
 
     public UserEntity getUserByEmail(String email) throws EntityNotFoundException {
-        UserEntity user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new EntityNotFoundException(email);
-        }
-        return user;
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException(email));
     }
 }
