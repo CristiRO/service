@@ -6,13 +6,13 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Run Service",
+            "name": "Run & Debug Service",
             "request": "launch",
             "mainClass": "ro.unibuc.hello.HelloApplication"
         },
         {
             "type": "java",
-            "name": "Debug Service (if already running)",
+            "name": "Debug Service already running in Docker",
             "request": "attach",
             "hostName": "localhost",
             "port": "5005"
