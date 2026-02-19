@@ -9,7 +9,7 @@ import io.cucumber.java.en.When;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-import ro.unibuc.hello.data.UserEntity;
+import ro.unibuc.hello.model.UserEntity;
 import ro.unibuc.hello.request.AssignTodoRequest;
 import ro.unibuc.hello.request.CreateTodoRequest;
 import ro.unibuc.hello.request.CreateUserRequest;

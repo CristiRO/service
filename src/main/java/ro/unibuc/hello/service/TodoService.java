@@ -6,9 +6,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.unibuc.hello.data.TodoEntity;
-import ro.unibuc.hello.data.TodoRepository;
-import ro.unibuc.hello.data.UserEntity;
+import ro.unibuc.hello.model.TodoEntity;
+import ro.unibuc.hello.repository.TodoRepository;
+import ro.unibuc.hello.model.UserEntity;
 import ro.unibuc.hello.request.AssignTodoRequest;
 import ro.unibuc.hello.request.CreateTodoRequest;
 import ro.unibuc.hello.request.EditTodoRequest;

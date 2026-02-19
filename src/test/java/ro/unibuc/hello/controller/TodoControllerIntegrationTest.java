@@ -3,8 +3,8 @@ package ro.unibuc.hello.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ro.unibuc.hello.IntegrationTestBase;
-import ro.unibuc.hello.data.TodoRepository;
-import ro.unibuc.hello.data.UserRepository;
+import ro.unibuc.hello.repository.TodoRepository;
+import ro.unibuc.hello.repository.UserRepository;
 import ro.unibuc.hello.request.CreateTodoRequest;
 import ro.unibuc.hello.request.CreateUserRequest;
 

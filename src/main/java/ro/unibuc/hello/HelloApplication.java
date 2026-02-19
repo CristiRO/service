@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import ro.unibuc.hello.data.UserRepository;
+import ro.unibuc.hello.repository.UserRepository;
 import ro.unibuc.hello.request.CreateTodoRequest;
 import ro.unibuc.hello.request.CreateUserRequest;
 import ro.unibuc.hello.service.TodoService;

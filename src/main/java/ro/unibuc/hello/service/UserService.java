@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.unibuc.hello.data.UserEntity;
-import ro.unibuc.hello.data.UserRepository;
+import ro.unibuc.hello.model.UserEntity;
+import ro.unibuc.hello.repository.UserRepository;
 import ro.unibuc.hello.request.CreateUserRequest;
 import ro.unibuc.hello.response.UserResponse;
 import ro.unibuc.hello.exception.EntityNotFoundException;
