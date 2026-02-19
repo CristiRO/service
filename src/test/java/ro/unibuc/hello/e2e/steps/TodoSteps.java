@@ -65,7 +65,7 @@ public class TodoSteps {
 
         ResponseEntity<String> response = restTemplate.postForEntity(BASE_URL + "/api/users", entity, String.class);
         UserEntity user = objectMapper.readValue(response.getBody(), UserEntity.class);
-        createdUserIds.add(user.getId());
+        createdUserIds.add(user.id());
     }
 
     @When("the client creates a todo {string} for {word}")
