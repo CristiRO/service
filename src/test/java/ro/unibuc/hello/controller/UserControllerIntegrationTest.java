@@ -49,7 +49,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testCreateAndGetUser() throws Exception {
+    public void testCreateAndGetUser_validUserCreation_retrievesUserSuccessfully() throws Exception {
         String userId = createUser("Alice", "alice@example.com");
 
         mockMvc.perform(get("/api/users/" + userId))
@@ -59,7 +59,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testGetAllUsers() throws Exception {
+    public void testGetAllUsers_multipleUsersExist_returnsAllUsers() throws Exception {
         createUser("Alice", "alice@example.com");
         createUser("Bob", "bob@example.com");
 
@@ -69,7 +69,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testUpdateUserWithPut() throws Exception {
+    public void testUpdateUserWithPut_validUserData_updatesUserSuccessfully() throws Exception {
         String userId = createUser("Alice", "alice@example.com");
 
         mockMvc.perform(put("/api/users/" + userId)
@@ -81,7 +81,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testChangeNameWithPatch() throws Exception {
+    public void testChangeNameWithPatch_validNameChange_updatesNameSuccessfully() throws Exception {
         String userId = createUser("Alice", "alice@example.com");
 
         mockMvc.perform(patch("/api/users/" + userId + "/name")
@@ -93,7 +93,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testDeleteUser() throws Exception {
+    public void testDeleteUser_existingUser_deletesSuccessfully() throws Exception {
         String userId = createUser("Alice", "alice@example.com");
 
         mockMvc.perform(delete("/api/users/" + userId))
@@ -105,7 +105,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testGetUserByEmail() throws Exception {
+    public void testGetUserByEmail_validEmail_returnsUser() throws Exception {
         createUser("Alice", "alice@example.com");
 
         mockMvc.perform(get("/api/users/by-email").param("email", "alice@example.com"))

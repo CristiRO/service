@@ -36,7 +36,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testGetAllUsers() {
+    void testGetAllUsers_withMultipleUsers_returnsAllUsers() {
         // Arrange
         List<UserEntity> users = Arrays.asList(
             new UserEntity("1", "Alice", "alice@example.com"),
@@ -54,7 +54,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testGetUserById_ExistingUser() throws EntityNotFoundException {
+    void testGetUserById_existingUserRequested_returnsUser() throws EntityNotFoundException {
         // Arrange
         UserEntity user = new UserEntity("1", "Alice", "alice@example.com");
         when(userRepository.findById("1")).thenReturn(Optional.of(user));
@@ -69,7 +69,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testGetUserById_NonExistingUser() {
+    void testGetUserById_nonExistingUserRequested_throwsEntityNotFoundException() {
         // Arrange
         when(userRepository.findById("999")).thenReturn(Optional.empty());
 
@@ -78,7 +78,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testCreateUser() {
+    void testCreateUser_newUserWithValidData_createsAndReturnsUser() {
         // Arrange
         CreateUserRequest request = new CreateUserRequest();
         request.setName("Alice");
@@ -98,7 +98,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testChangeName_ExistingUser() throws EntityNotFoundException {
+    void testChangeName_existingUserRequested_changesNameSuccessfully() throws EntityNotFoundException {
         // Arrange
         UserEntity existing = new UserEntity("1", "Alice", "alice@example.com");
         when(userRepository.findById("1")).thenReturn(Optional.of(existing));
@@ -115,7 +115,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testChangeName_NonExistingUser() {
+    void testChangeName_nonExistingUserRequested_throwsEntityNotFoundException() {
         // Arrange
         when(userRepository.findById("999")).thenReturn(Optional.empty());
 
@@ -124,7 +124,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testDeleteUser_ExistingUser() throws EntityNotFoundException {
+    void testDeleteUser_existingUserRequested_deletesSuccessfully() throws EntityNotFoundException {
         // Arrange
         when(userRepository.existsById("1")).thenReturn(true);
 
@@ -136,7 +136,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testDeleteUser_NonExistingUser() {
+    void testDeleteUser_nonExistingUserRequested_throwsEntityNotFoundException() {
         // Arrange
         when(userRepository.existsById("999")).thenReturn(false);
 

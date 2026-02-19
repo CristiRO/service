@@ -65,7 +65,7 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testCreateAndGetTodo() throws Exception {
+    public void testCreateAndGetTodo_validTodoCreation_retrievesTodoSuccessfully() throws Exception {
         createUser("Alice", "alice@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
@@ -78,7 +78,7 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testGetTodosByUser() throws Exception {
+    public void testGetTodosByUser_multipleUsersWithDifferentTodos_filtersCorrectly() throws Exception {
         createUser("Alice", "alice@example.com");
         createUser("Bob", "bob@example.com");
         createTodo("Buy milk", "alice@example.com");
@@ -95,7 +95,7 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testSetDone() throws Exception {
+    public void testSetDone_toggleDoneStatus_updatesStatusCorrectly() throws Exception {
         createUser("Alice", "alice@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
@@ -113,7 +113,7 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testAssign() throws Exception {
+    public void testAssign_reassignToDifferentUser_updateAssigneeSuccessfully() throws Exception {
         createUser("Alice", "alice@example.com");
         createUser("Bob", "bob@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
@@ -127,7 +127,7 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testEditDescription() throws Exception {
+    public void testEditDescription_validNewDescription_updatesDescriptionSuccessfully() throws Exception {
         createUser("Alice", "alice@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
@@ -139,7 +139,7 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testDeleteTodo() throws Exception {
+    public void testDeleteTodo_existingTodo_deletesSuccessfully() throws Exception {
         createUser("Alice", "alice@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
