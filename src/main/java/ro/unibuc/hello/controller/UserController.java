@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-import ro.unibuc.hello.data.UserEntity;
-import ro.unibuc.hello.dto.ChangeNameRequest;
-import ro.unibuc.hello.dto.CreateUserRequest;
+import ro.unibuc.hello.request.ChangeNameRequest;
+import ro.unibuc.hello.request.CreateUserRequest;
+import ro.unibuc.hello.response.UserResponse;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.UserService;
 
@@ -22,36 +22,36 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserEntity>> getAllUsers() {
-        List<UserEntity> users = userService.getAllUsers();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> getUserById(@PathVariable String id) throws EntityNotFoundException {
-        UserEntity user = userService.getUserById(id);
+    public ResponseEntity<UserResponse> getUserById(@PathVariable String id) throws EntityNotFoundException {
+        UserResponse user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping
-    public ResponseEntity<UserEntity> createUser(@Valid @RequestBody CreateUserRequest request) {
-        UserEntity user = userService.createUser(request);
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
+        UserResponse user = userService.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserEntity> updateUser(
+    public ResponseEntity<UserResponse> updateUser(
             @PathVariable String id,
             @RequestBody ChangeNameRequest request) throws EntityNotFoundException {
-        UserEntity user = userService.changeName(id, request.name());
+        UserResponse user = userService.changeName(id, request.name());
         return ResponseEntity.ok(user);
     }
 
     @PatchMapping("/{id}/name")
-    public ResponseEntity<UserEntity> changeName(
+    public ResponseEntity<UserResponse> changeName(
             @PathVariable String id,
             @RequestBody ChangeNameRequest request) throws EntityNotFoundException {
-        UserEntity user = userService.changeName(id, request.name());
+        UserResponse user = userService.changeName(id, request.name());
         return ResponseEntity.ok(user);
     }
 
@@ -62,9 +62,9 @@ public class UserController {
     }
 
     @GetMapping("/by-email")
-    public ResponseEntity<UserEntity> getUserByEmail(@RequestParam String email)
+    public ResponseEntity<UserResponse> getUserByEmail(@RequestParam String email)
             throws EntityNotFoundException {
-        UserEntity user = userService.getUserByEmail(email);
+        UserResponse user = userService.getUserByEmail(email);
         return ResponseEntity.ok(user);
     }
 }

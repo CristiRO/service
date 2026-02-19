@@ -10,7 +10,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ro.unibuc.hello.data.UserEntity;
 import ro.unibuc.hello.data.UserRepository;
-import ro.unibuc.hello.dto.CreateUserRequest;
+import ro.unibuc.hello.request.CreateUserRequest;
+import ro.unibuc.hello.response.UserResponse;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 
 import java.util.Arrays;
@@ -45,12 +46,12 @@ class UserServiceTest {
         when(userRepository.findAll()).thenReturn(users);
 
         // Act
-        List<UserEntity> result = userService.getAllUsers();
+        List<UserResponse> result = userService.getAllUsers();
 
         // Assert
         assertEquals(2, result.size());
-        assertEquals("Alice", result.get(0).getName());
-        assertEquals("Bob", result.get(1).getName());
+        assertEquals("Alice", result.get(0).name());
+        assertEquals("Bob", result.get(1).name());
     }
 
     @Test
@@ -60,12 +61,12 @@ class UserServiceTest {
         when(userRepository.findById("1")).thenReturn(Optional.of(user));
 
         // Act
-        UserEntity result = userService.getUserById("1");
+        UserResponse result = userService.getUserById("1");
 
         // Assert
         assertNotNull(result);
-        assertEquals("Alice", result.getName());
-        assertEquals("alice@example.com", result.getEmail());
+        assertEquals("Alice", result.name());
+        assertEquals("alice@example.com", result.email());
     }
 
     @Test
@@ -85,13 +86,13 @@ class UserServiceTest {
         when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // Act
-        UserEntity result = userService.createUser(request);
+        UserResponse result = userService.createUser(request);
 
         // Assert
         assertNotNull(result);
-        assertNotNull(result.getId());
-        assertEquals("Alice", result.getName());
-        assertEquals("alice@example.com", result.getEmail());
+        assertNotNull(result.id());
+        assertEquals("Alice", result.name());
+        assertEquals("alice@example.com", result.email());
         verify(userRepository, times(1)).save(any(UserEntity.class));
     }
 
@@ -103,13 +104,13 @@ class UserServiceTest {
         when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // Act
-        UserEntity result = userService.changeName("1", "Alicia");
+        UserResponse result = userService.changeName("1", "Alicia");
 
         // Assert
         assertNotNull(result);
-        assertEquals("1", result.getId());
-        assertEquals("Alicia", result.getName());
-        assertEquals("alice@example.com", result.getEmail());
+        assertEquals("1", result.id());
+        assertEquals("Alicia", result.name());
+        assertEquals("alice@example.com", result.email());
     }
 
     @Test

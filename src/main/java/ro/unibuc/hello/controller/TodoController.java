@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import ro.unibuc.hello.dto.AssignTodoRequest;
-import ro.unibuc.hello.dto.CreateTodoRequest;
-import ro.unibuc.hello.dto.EditTodoRequest;
-import ro.unibuc.hello.dto.TodoResponse;
+import ro.unibuc.hello.request.AssignTodoRequest;
+import ro.unibuc.hello.request.CreateTodoRequest;
+import ro.unibuc.hello.request.EditTodoRequest;
+import ro.unibuc.hello.response.TodoResponse;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.TodoService;
 

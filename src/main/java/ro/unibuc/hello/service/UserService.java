@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import ro.unibuc.hello.data.UserEntity;
 import ro.unibuc.hello.data.UserRepository;
-import ro.unibuc.hello.dto.CreateUserRequest;
+import ro.unibuc.hello.request.CreateUserRequest;
+import ro.unibuc.hello.response.UserResponse;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 
 @Service
@@ -17,16 +18,24 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(this::toResponse)
+                .toList();
     }
 
-    public UserEntity getUserById(String id) throws EntityNotFoundException {
+    public UserResponse getUserById(String id) throws EntityNotFoundException {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id));
+        return toResponse(user);
+    }
+
+    public UserEntity getUserEntityById(String id) throws EntityNotFoundException {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
     }
 
-    public UserEntity createUser(CreateUserRequest request) {
+    public UserResponse createUser(CreateUserRequest request) {
         if (userRepository.findByEmail(request.email()).isPresent()) {
             throw new IllegalArgumentException("Email already exists: " + request.email());
         }
@@ -34,14 +43,16 @@ public class UserService {
         user.setId(UUID.randomUUID().toString());
         user.setName(request.name());
         user.setEmail(request.email());
-        return userRepository.save(user);
+        UserEntity saved = userRepository.save(user);
+        return toResponse(saved);
     }
 
-    public UserEntity changeName(String id, String newName) throws EntityNotFoundException {
+    public UserResponse changeName(String id, String newName) throws EntityNotFoundException {
         UserEntity existing = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
         existing.setName(newName);
-        return userRepository.save(existing);
+        UserEntity saved = userRepository.save(existing);
+        return toResponse(saved);
     }
 
     public void deleteUser(String id) throws EntityNotFoundException {
@@ -51,8 +62,22 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserEntity getUserByEmail(String email) throws EntityNotFoundException {
+    public UserResponse getUserByEmail(String email) throws EntityNotFoundException {
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException(email));
+        return toResponse(user);
+    }
+
+    public UserEntity getUserEntityByEmail(String email) throws EntityNotFoundException {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(email));
+    }
+
+    private UserResponse toResponse(UserEntity user) {
+        return new UserResponse(
+            user.getId(),
+            user.getName(),
+            user.getEmail()
+        );
     }
 }

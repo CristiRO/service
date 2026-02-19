@@ -1,4 +1,4 @@
-package ro.unibuc.hello.dto;
+package ro.unibuc.hello.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

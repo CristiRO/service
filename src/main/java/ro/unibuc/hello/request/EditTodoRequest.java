@@ -1,3 +1,3 @@
-package ro.unibuc.hello.dto;
+package ro.unibuc.hello.request;
 
 public record EditTodoRequest(String description) {}

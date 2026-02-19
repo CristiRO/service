@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ro.unibuc.hello.IntegrationTestBase;
 import ro.unibuc.hello.data.TodoRepository;
 import ro.unibuc.hello.data.UserRepository;
-import ro.unibuc.hello.dto.CreateTodoRequest;
-import ro.unibuc.hello.dto.CreateUserRequest;
+import ro.unibuc.hello.request.CreateTodoRequest;
+import ro.unibuc.hello.request.CreateUserRequest;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

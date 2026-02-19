@@ -10,10 +10,10 @@ import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import ro.unibuc.hello.data.UserEntity;
-import ro.unibuc.hello.dto.AssignTodoRequest;
-import ro.unibuc.hello.dto.CreateTodoRequest;
-import ro.unibuc.hello.dto.CreateUserRequest;
-import ro.unibuc.hello.dto.TodoResponse;
+import ro.unibuc.hello.request.AssignTodoRequest;
+import ro.unibuc.hello.request.CreateTodoRequest;
+import ro.unibuc.hello.request.CreateUserRequest;
+import ro.unibuc.hello.response.TodoResponse;
 
 import java.util.ArrayList;
 import java.util.List;

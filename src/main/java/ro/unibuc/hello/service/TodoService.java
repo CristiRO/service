@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import ro.unibuc.hello.data.TodoEntity;
 import ro.unibuc.hello.data.TodoRepository;
 import ro.unibuc.hello.data.UserEntity;
-import ro.unibuc.hello.dto.AssignTodoRequest;
-import ro.unibuc.hello.dto.CreateTodoRequest;
-import ro.unibuc.hello.dto.EditTodoRequest;
-import ro.unibuc.hello.dto.TodoResponse;
+import ro.unibuc.hello.request.AssignTodoRequest;
+import ro.unibuc.hello.request.CreateTodoRequest;
+import ro.unibuc.hello.request.EditTodoRequest;
+import ro.unibuc.hello.response.TodoResponse;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 
 @Service
@@ -25,7 +25,7 @@ public class TodoService {
     private UserService userService;
 
     public List<TodoResponse> getTodosByUserEmail(String email) throws EntityNotFoundException {
-        UserEntity user = userService.getUserByEmail(email);
+        UserEntity user = userService.getUserEntityByEmail(email);
         List<TodoEntity> todos = todoRepository.findByAssignedUserId(user.getId());
         return todos.stream()
                 .map(todo -> toResponse(todo, user))
@@ -35,12 +35,12 @@ public class TodoService {
     public TodoResponse getTodoById(String id) throws EntityNotFoundException {
         TodoEntity todo = todoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
-        UserEntity assignee = userService.getUserById(todo.assignedUserId());
+        UserEntity assignee = userService.getUserEntityById(todo.assignedUserId());
         return toResponse(todo, assignee);
     }
 
     public TodoResponse createTodo(CreateTodoRequest request) throws EntityNotFoundException {
-        UserEntity assignee = userService.getUserByEmail(request.assigneeEmail());
+        UserEntity assignee = userService.getUserEntityByEmail(request.assigneeEmail());
         TodoEntity todo = new TodoEntity(
             UUID.randomUUID().toString(),
             request.description(),
@@ -55,13 +55,13 @@ public class TodoService {
         TodoEntity existing = getEntityById(id);
         TodoEntity updated = new TodoEntity(id, existing.description(), done, existing.assignedUserId());
         TodoEntity saved = todoRepository.save(updated);
-        UserEntity assignee = userService.getUserById(saved.assignedUserId());
+        UserEntity assignee = userService.getUserEntityById(saved.assignedUserId());
         return toResponse(saved, assignee);
     }
 
     public TodoResponse assign(String id, AssignTodoRequest request) throws EntityNotFoundException {
         TodoEntity existing = getEntityById(id);
-        UserEntity newAssignee = userService.getUserByEmail(request.newAssigneeEmail());
+        UserEntity newAssignee = userService.getUserEntityByEmail(request.newAssigneeEmail());
         TodoEntity updated = new TodoEntity(id, existing.description(), existing.done(), newAssignee.getId());
         TodoEntity saved = todoRepository.save(updated);
         return toResponse(saved, newAssignee);
@@ -71,7 +71,7 @@ public class TodoService {
         TodoEntity existing = getEntityById(id);
         TodoEntity updated = new TodoEntity(id, request.description(), existing.done(), existing.assignedUserId());
         TodoEntity saved = todoRepository.save(updated);
-        UserEntity assignee = userService.getUserById(saved.assignedUserId());
+        UserEntity assignee = userService.getUserEntityById(saved.assignedUserId());
         return toResponse(saved, assignee);
     }
 

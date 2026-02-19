@@ -1,4 +1,4 @@
-package ro.unibuc.hello.dto;
+package ro.unibuc.hello.response;
 
 public record TodoResponse(
     String id,
