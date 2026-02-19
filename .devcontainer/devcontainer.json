@@ -13,9 +13,6 @@
   },
   "customizations": {
     "vscode": {
-      "settings": {
-        "java.jdt.ls.java.home": "/usr/lib/jvm/msopenjdk-current"
-      },
       "extensions": [
         "vscjava.vscode-java-pack",
         "ms-azuretools.vscode-docker",
