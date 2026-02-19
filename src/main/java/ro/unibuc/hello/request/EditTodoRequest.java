@@ -1,3 +1,8 @@
 package ro.unibuc.hello.request;
 
-public record EditTodoRequest(String description) {}
+import jakarta.validation.constraints.NotBlank;
+
+public record EditTodoRequest(
+    @NotBlank(message = "Description is required")
+    String description
+) {}

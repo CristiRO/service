@@ -42,7 +42,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> updateUser(
             @PathVariable String id,
-            @RequestBody ChangeNameRequest request) throws EntityNotFoundException {
+            @Valid @RequestBody ChangeNameRequest request) throws EntityNotFoundException {
         UserResponse user = userService.changeName(id, request.name());
         return ResponseEntity.ok(user);
     }
@@ -50,7 +50,7 @@ public class UserController {
     @PatchMapping("/{id}/name")
     public ResponseEntity<UserResponse> changeName(
             @PathVariable String id,
-            @RequestBody ChangeNameRequest request) throws EntityNotFoundException {
+            @Valid @RequestBody ChangeNameRequest request) throws EntityNotFoundException {
         UserResponse user = userService.changeName(id, request.name());
         return ResponseEntity.ok(user);
     }

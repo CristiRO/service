@@ -1,3 +1,8 @@
 package ro.unibuc.hello.request;
 
-public record ChangeNameRequest(String name) {}
+import jakarta.validation.constraints.NotBlank;
+
+public record ChangeNameRequest(
+    @NotBlank(message = "Name is required")
+    String name
+) {}

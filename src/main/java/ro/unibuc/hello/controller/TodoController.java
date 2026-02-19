@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import ro.unibuc.hello.request.AssignTodoRequest;
 import ro.unibuc.hello.request.CreateTodoRequest;
 import ro.unibuc.hello.request.EditTodoRequest;
@@ -30,7 +31,7 @@ public class TodoController {
     }
 
     @PostMapping
-    public TodoResponse createTodo(@RequestBody CreateTodoRequest request) throws EntityNotFoundException {
+    public TodoResponse createTodo(@Valid @RequestBody CreateTodoRequest request) throws EntityNotFoundException {
         return todoService.createTodo(request);
     }
 
@@ -40,12 +41,12 @@ public class TodoController {
     }
 
     @PatchMapping("/{id}/assignee")
-    public TodoResponse assign(@PathVariable String id, @RequestBody AssignTodoRequest request) throws EntityNotFoundException {
+    public TodoResponse assign(@PathVariable String id, @Valid @RequestBody AssignTodoRequest request) throws EntityNotFoundException {
         return todoService.assign(id, request);
     }
 
     @PatchMapping("/{id}/description")
-    public TodoResponse edit(@PathVariable String id, @RequestBody EditTodoRequest request) throws EntityNotFoundException {
+    public TodoResponse edit(@PathVariable String id, @Valid @RequestBody EditTodoRequest request) throws EntityNotFoundException {
         return todoService.edit(id, request);
     }
 
