@@ -50,8 +50,10 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testCreateAndGetUser_validUserCreation_retrievesUserSuccessfully() throws Exception {
+        // Arrange
         String userId = createUser("Alice", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(get("/api/users/" + userId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Alice"))
@@ -60,9 +62,11 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testGetAllUsers_multipleUsersExist_returnsAllUsers() throws Exception {
+        // Arrange
         createUser("Alice", "alice@example.com");
         createUser("Bob", "bob@example.com");
 
+        // Act & Assert
         mockMvc.perform(get("/api/users"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
@@ -70,8 +74,10 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testUpdateUserWithPut_validUserData_updatesUserSuccessfully() throws Exception {
+        // Arrange
         String userId = createUser("Alice", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(put("/api/users/" + userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"Alicia\"}"))
@@ -82,8 +88,10 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testChangeNameWithPatch_validNameChange_updatesNameSuccessfully() throws Exception {
+        // Arrange
         String userId = createUser("Alice", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(patch("/api/users/" + userId + "/name")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"Alicia\"}"))
@@ -94,8 +102,10 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testDeleteUser_existingUser_deletesSuccessfully() throws Exception {
+        // Arrange
         String userId = createUser("Alice", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(delete("/api/users/" + userId))
                 .andExpect(status().isNoContent());
 
@@ -106,8 +116,10 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testGetUserByEmail_validEmail_returnsUser() throws Exception {
+        // Arrange
         createUser("Alice", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(get("/api/users/by-email").param("email", "alice@example.com"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Alice"))

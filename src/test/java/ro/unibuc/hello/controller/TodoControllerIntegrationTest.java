@@ -66,9 +66,11 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testCreateAndGetTodo_validTodoCreation_retrievesTodoSuccessfully() throws Exception {
+        // Arrange
         createUser("Alice", "alice@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(get("/api/todos/" + todoId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value("Buy milk"))
@@ -79,12 +81,14 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testGetTodosByUser_multipleUsersWithDifferentTodos_filtersCorrectly() throws Exception {
+        // Arrange
         createUser("Alice", "alice@example.com");
         createUser("Bob", "bob@example.com");
         createTodo("Buy milk", "alice@example.com");
         createTodo("Walk the dog", "alice@example.com");
         createTodo("Clean house", "bob@example.com");
 
+        // Act & Assert
         mockMvc.perform(get("/api/todos").param("assigneeEmail", "alice@example.com"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
@@ -96,9 +100,11 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testSetDone_toggleDoneStatus_updatesStatusCorrectly() throws Exception {
+        // Arrange
         createUser("Alice", "alice@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(patch("/api/todos/" + todoId + "/done")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("true"))
@@ -114,10 +120,12 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testAssign_reassignToDifferentUser_updateAssigneeSuccessfully() throws Exception {
+        // Arrange
         createUser("Alice", "alice@example.com");
         createUser("Bob", "bob@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(patch("/api/todos/" + todoId + "/assignee")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"newAssigneeEmail\":\"bob@example.com\"}"))
@@ -128,9 +136,11 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testEditDescription_validNewDescription_updatesDescriptionSuccessfully() throws Exception {
+        // Arrange
         createUser("Alice", "alice@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(patch("/api/todos/" + todoId + "/description")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"description\":\"Buy oat milk\"}"))
@@ -140,9 +150,11 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     public void testDeleteTodo_existingTodo_deletesSuccessfully() throws Exception {
+        // Arrange
         createUser("Alice", "alice@example.com");
         String todoId = createTodo("Buy milk", "alice@example.com");
 
+        // Act & Assert
         mockMvc.perform(delete("/api/todos/" + todoId))
                 .andExpect(status().isOk());
 
