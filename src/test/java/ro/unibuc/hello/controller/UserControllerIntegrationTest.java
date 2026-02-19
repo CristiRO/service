@@ -32,9 +32,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     private String createUser(String name, String email) throws Exception {
-        CreateUserRequest request = new CreateUserRequest();
-        request.setName(name);
-        request.setEmail(email);
+        CreateUserRequest request = new CreateUserRequest(name, email);
 
         String response = mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -80,9 +80,7 @@ class UserServiceTest {
     @Test
     void testCreateUser_newUserWithValidData_createsAndReturnsUser() {
         // Arrange
-        CreateUserRequest request = new CreateUserRequest();
-        request.setName("Alice");
-        request.setEmail("alice@example.com");
+        CreateUserRequest request = new CreateUserRequest("Alice", "alice@example.com");
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
         when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 

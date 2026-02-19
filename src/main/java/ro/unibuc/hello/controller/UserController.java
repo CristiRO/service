@@ -43,7 +43,7 @@ public class UserController {
     public ResponseEntity<UserEntity> updateUser(
             @PathVariable String id,
             @RequestBody ChangeNameRequest request) throws EntityNotFoundException {
-        UserEntity user = userService.changeName(id, request.getName());
+        UserEntity user = userService.changeName(id, request.name());
         return ResponseEntity.ok(user);
     }
 
@@ -51,7 +51,7 @@ public class UserController {
     public ResponseEntity<UserEntity> changeName(
             @PathVariable String id,
             @RequestBody ChangeNameRequest request) throws EntityNotFoundException {
-        UserEntity user = userService.changeName(id, request.getName());
+        UserEntity user = userService.changeName(id, request.name());
         return ResponseEntity.ok(user);
     }
 

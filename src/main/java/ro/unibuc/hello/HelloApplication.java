@@ -33,9 +33,7 @@ public class HelloApplication {
 	@PostConstruct
 	public void runAfterObjectCreated() {
 		if (userRepository.findByEmail("frodo@theshire.me").isEmpty()) {
-			CreateUserRequest userRequest = new CreateUserRequest();
-			userRequest.setName("Frodo Baggins");
-			userRequest.setEmail("frodo@theshire.me");
+			CreateUserRequest userRequest = new CreateUserRequest("Frodo Baggins", "frodo@theshire.me");
 			userService.createUser(userRequest);
 			todoService.createTodo(new CreateTodoRequest("Take the ring to Mordor", "frodo@theshire.me"));
 		}

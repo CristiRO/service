@@ -27,13 +27,13 @@ public class UserService {
     }
 
     public UserEntity createUser(CreateUserRequest request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("Email already exists: " + request.getEmail());
+        if (userRepository.findByEmail(request.email()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists: " + request.email());
         }
         UserEntity user = new UserEntity();
         user.setId(UUID.randomUUID().toString());
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
+        user.setName(request.name());
+        user.setEmail(request.email());
         return userRepository.save(user);
     }
 
