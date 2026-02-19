@@ -154,7 +154,7 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
 
         // Act & Assert
         mockMvc.perform(delete("/api/todos/" + todoId))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         mockMvc.perform(get("/api/todos").param("assigneeEmail", "alice@example.com"))
                 .andExpect(status().isOk())
