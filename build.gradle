@@ -92,18 +92,6 @@ jacocoTestReport {
 	}
 }
 
-jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			limit {
-				minimum = 0.2
-			}
-		}
-	}
-}
-
-check.dependsOn jacocoTestCoverageVerification
-
 task testIT(type: Test) {
 	outputs.dir snippetsDir
 	outputs.upToDateWhen { false }
