@@ -52,7 +52,7 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
         String response = mockMvc.perform(post("/api/todos")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.description").value(description))
                 .andExpect(jsonPath("$.done").value(false))
                 .andExpect(jsonPath("$.assigneeEmail").value(assigneeEmail))
