@@ -101,13 +101,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "rate(prod_eng_greeting_count_total[5m])",
+          "expr": "rate(prod_eng_api_users_count_total[5m])",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "greeting rated [5m]",
+      "title": "api/users request rate [5m]",
       "type": "timeseries"
     },
     {
@@ -186,13 +186,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "prod_eng_greeting_count_total",
+          "expr": "prod_eng_api_users_count_total",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "greeting counter",
+      "title": "api/users request counter",
       "type": "timeseries"
     },
     {
@@ -271,13 +271,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "prod_eng_greeting_time_seconds_max",
+          "expr": "prod_eng_api_users_time_seconds_max",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "get greeting time",
+      "title": "api/users response time",
       "type": "timeseries"
     },
     {
@@ -362,7 +362,7 @@
           "refId": "A"
         }
       ],
-      "title": "prod-eng rated [5m]",
+      "title": "info endpoint request rate [5m]",
       "type": "timeseries"
     },
     {
@@ -447,7 +447,7 @@
           "refId": "A"
         }
       ],
-      "title": "prod-eng counter",
+      "title": "info endpoint request counter",
       "type": "timeseries"
     },
     {
@@ -532,7 +532,7 @@
           "refId": "A"
         }
       ],
-      "title": "get prod-eng time",
+      "title": "info endpoint response time",
       "type": "timeseries"
     },
     {
