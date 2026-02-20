@@ -1,5 +1,5 @@
 services:
-  prod-eng-service:
+  prod-eng:
     image: prod-eng-img
     build: .
     ports:
@@ -127,7 +127,7 @@ services:
     image: mtchavez/docker-wrk
     profiles:
       - "perf"
-    command: wrk -t4 -c10 -d300s http://prod-eng-service:8080/api/users
+    command: wrk -t4 -c10 -d300s http://prod-eng:8080/api/users
     logging:
       driver: loki
       options:
@@ -137,7 +137,7 @@ services:
     image: mtchavez/docker-wrk
     profiles:
       - "perf"
-    command: wrk -t4 -c1000 -d5m --timeout 1s --latency http://prod-eng-service:8080/info
+    command: wrk -t4 -c1000 -d5m --timeout 1s --latency http://prod-eng:8080/info
     logging:
       driver: loki
       options:
