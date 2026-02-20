@@ -58,7 +58,7 @@ NOTE: for a live demo, please check out [this youtube video](https://youtu.be/-9
   service git:(master) ✗  $ docker ps
   CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS                      NAMES
   c1d05dddd3fe   mongo:5.0.2     "docker-entrypoint.s…"   6 seconds ago   Up 5 seconds   0.0.0.0:27017->27017/tcp   service_mongo_1
-  e90bb406c139   prod-eng-img    "java -jar /prod-eng…"   6 seconds ago   Up 5 seconds   0.0.0.0:8080->8080/tcp     service_prod-eng-service_1
+  e90bb406c139   prod-eng-img    "java -jar /prod-eng…"   6 seconds ago   Up 5 seconds   0.0.0.0:8080->8080/tcp     service_prod-eng_1
   411475a7b596   mongo-express   "tini -- /docker-ent…"   6 seconds ago   Up 2 seconds   0.0.0.0:8090->8081/tcp     service_mongo-admin-ui_1
   ```
 * Open in your browser:
