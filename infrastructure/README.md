@@ -32,10 +32,10 @@ Grafana
 * Plot metrics in Prometheus
   * Navigate to: http://localhost:9090
   * Invoke the application endpoints a couple of times so they start generating metrics:
-    * http://localhost:8080/hello-world
+    * http://localhost:8080/api/users
     * http://localhost:8080/info
-  * Wait 15s (default scrape interval)  
-  * Paste `invocation_count_total{endpoint="hello"}` and choose Execute and Graph
+  * Wait 15s (default scrape interval)
+  * Paste `invocation_count_total{endpoint="api/users"}` and choose Execute and Graph
   * Paste `invocation_duration_seconds_max{endpoint="info"}` and choose Execute and Graph
 
 
@@ -47,7 +47,7 @@ Grafana
   * Use as URL: http://prometheus:9090 
 * Create a dashboard to plot invocation_count_total:
   * From the __+__ sign choose "Create -> Dashboard -> Add New Panel"
-  * Select `Prometheus` as datasource for the panel, and paste `invocation_count_total{endpoint="hello"}`
+  * Select `Prometheus` as datasource for the panel, and paste `invocation_count_total{endpoint="api/users"}`
 
 # Start Perf test
 

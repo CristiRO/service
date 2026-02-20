@@ -21,7 +21,7 @@ public abstract class IntegrationTestBase {
             new MongoDBContainer("mongo:6.0.20")
                     .withExposedPorts(27017)
                     .withSharding()
-                    .withLabel("ro.unibuc.hello", "integration-test-mongo");
+                    .withLabel("ro.unibuc.prodeng", "integration-test-mongo");
 
     static {
         mongoDBContainer.start();

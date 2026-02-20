@@ -5,10 +5,10 @@ FROM amazoncorretto:21-alpine-jdk
 ENV JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n
 
 # Copy the locally built JAR file from the local file system to the image
-COPY ./build/libs/hello-0.0.1-SNAPSHOT.jar /hello/libs/hello.jar
+COPY ./build/libs/prod-eng-0.0.1-SNAPSHOT.jar /prod-eng/libs/prod-eng.jar
 
 # Set the working directory inside the image
-WORKDIR /hello/libs/
+WORKDIR /prod-eng/libs/
 
 # Define the command to run the application
-CMD ["java", "-jar", "/hello/libs/hello.jar"]
+CMD ["java", "-jar", "/prod-eng/libs/prod-eng.jar"]

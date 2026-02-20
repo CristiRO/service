@@ -119,7 +119,7 @@ task testE2E() {
 			args = [
 					'--plugin', 'pretty',
 					'--plugin', 'html:target/cucumber-report.html',
-					'--glue', 'ro.unibuc.hello.e2e',
+					'--glue', 'ro.unibuc.prodeng.e2e',
 					'src/test/resources']
 		}
 	}

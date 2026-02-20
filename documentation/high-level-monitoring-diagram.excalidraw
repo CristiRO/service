@@ -67,12 +67,12 @@
       "link": null,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "Hello\nSpring Web App\n(stateless service)",
+      "text": "Prod Eng Service\nSpring Web App\n(stateless service)",
       "baseline": 68,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Hello\nSpring Web App\n(stateless service)"
+      "originalText": "Prod Eng Service\nSpring Web App\n(stateless service)"
     },
     {
       "type": "line",
@@ -1175,12 +1175,12 @@
       "link": null,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": ":8080/hello-world\n:8080/info",
+      "text": ":8080/api/users\n:8080/info",
       "baseline": 43,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": ":8080/hello-world\n:8080/info"
+      "originalText": ":8080/api/users\n:8080/info"
     },
     {
       "type": "arrow",

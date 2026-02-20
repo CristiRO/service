@@ -8,7 +8,7 @@
             "type": "java",
             "name": "Run & Debug Service",
             "request": "launch",
-            "mainClass": "ro.unibuc.hello.HelloApplication"
+            "mainClass": "ro.unibuc.prodeng.ProdEngApplication"
         },
         {
             "type": "java",

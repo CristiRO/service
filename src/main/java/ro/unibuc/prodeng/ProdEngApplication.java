@@ -15,7 +15,7 @@ import jakarta.annotation.PostConstruct;
 
 @SpringBootApplication
 @EnableMongoRepositories
-public class HelloApplication {
+public class ProdEngApplication {
 
 	@Autowired
 	private UserService userService;
@@ -27,7 +27,7 @@ public class HelloApplication {
 	private UserRepository userRepository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(HelloApplication.class, args);
+		SpringApplication.run(ProdEngApplication.class, args);
 	}
 
 	@PostConstruct
