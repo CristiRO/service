@@ -17,17 +17,17 @@ Follow the [./PREREQUISITES.md](./PREREQUISITES.md) instructions to configure a 
 * Wait for the Codespace to be up and running
 * Make sure that Docker service has been started
     * ```docker ps``` should return no error
-* For running all services in docker:
-    * Build the docker image of the prod-eng service
-        * ```make build```
-    * Start all the service containers
-        * ```./start.sh```
 * For running / debugging directly in Visual Studio Code
+  * Start the MongoDB related services
+    * ```./start_mongo_only.sh```
   * Build and run the Spring Boot service
     * ```./gradlew build```
     * ```./gradlew bootRun```
-  * Start the MongoDB related services
-      * ```./start_mongo_only.sh```
+* For running all services in Docker:
+    * Build the Docker image of the prod-eng service
+        * ```make build```
+    * Start all the service containers
+        * ```./start.sh```
 * Use [requests.http](requests.http) to test API endpoints
 * Navigation between methods (e.g. 'Go to Definition') may require:
   * ```./gradlew build``` 
@@ -40,7 +40,7 @@ NOTE: for a live demo, please check out [this youtube video](https://youtu.be/-9
     * If you want to build it from command line and also run unit tests, run: ```./gradlew build```
 * Create an IntelliJ run configuration for a Jar application
     * Add in the configuration the JAR path to the build folder `./build/libs/prod-eng-0.0.1-SNAPSHOT.jar`
-* Start the MongoDB container using docker compose
+* Start the MongoDB container using Docker Compose
     * ```docker-compose up -d mongo```
 * Run/debug your IntelliJ run configuration
 * Open in your browser:
@@ -48,7 +48,7 @@ NOTE: for a live demo, please check out [this youtube video](https://youtu.be/-9
 
 # Deploy and run the code locally as docker instance
 
-* Build the docker image of the prod-eng service
+* Build the Docker image of the prod-eng service
     * ```make build```
 * Start all the containers
     * ```./start.sh```
