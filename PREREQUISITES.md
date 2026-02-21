@@ -22,6 +22,7 @@ If you DO NOT have one of those OSs installed we will use the following section 
   * Open the WSL terminal in Visual Studio Code
   * Navigate to your Gradle project folder:
     * Locally:
+      * ```./start_mongo_only.sh``` to start MongoDB database, required for running application 
       * ```chmod +x gradlew``` to make the gradlew script executable
       * ```./gradlew build``` to build the project
       * ```./gradlew bootRun``` to run the project
