@@ -31,17 +31,12 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
     void testGetAllUsers_withMultipleUsers_returnsAllUsers() {
         // Arrange
         List<UserEntity> users = Arrays.asList(
-            new UserEntity("1", "Alice", "alice@example.com"),
-            new UserEntity("2", "Bob", "bob@example.com")
+                new UserEntity("1", "Alice", "alice@example.com"),
+                new UserEntity("2", "Bob", "bob@example.com")
         );
         when(userRepository.findAll()).thenReturn(users);
 
@@ -83,7 +78,12 @@ class UserServiceTest {
         // Arrange
         CreateUserRequest request = new CreateUserRequest("Alice", "alice@example.com");
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
-        when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> {
+            UserEntity entity = invocation.getArgument(0);
+            // Simulate MongoDB generating an ID for new entities
+            String id = "generated-id-123";
+            return new UserEntity(id, entity.name(), entity.email());
+        });
 
         // Act
         UserResponse result = userService.createUser(request);
@@ -101,7 +101,12 @@ class UserServiceTest {
         // Arrange
         UserEntity existing = new UserEntity("1", "Alice", "alice@example.com");
         when(userRepository.findById("1")).thenReturn(Optional.of(existing));
-        when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> {
+            UserEntity entity = invocation.getArgument(0);
+            // Simulate MongoDB generating an ID for new entities
+            String id = entity.id() == null ? "generated-id-123" : entity.id();
+            return new UserEntity(id, entity.name(), entity.email());
+        });
 
         // Act
         UserResponse result = userService.changeName("1", "Alicia");
