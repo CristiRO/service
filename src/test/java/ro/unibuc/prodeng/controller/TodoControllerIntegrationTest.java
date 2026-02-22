@@ -160,4 +160,41 @@ class TodoControllerIntegrationTest extends IntegrationTestBase {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(0));
     }
+
+    @Test
+    void testGetTodoById_nonExistentTodo_returnsNotFound() throws Exception {
+        // Arrange
+        String nonExistentId = "nonexistent-todo-id";
+
+        // Act & Assert
+        mockMvc.perform(get("/api/todos/" + nonExistentId))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").value("Entity: " + nonExistentId + " was not found"));
+    }
+
+    @Test
+    void testCreateTodo_nonExistentAssignee_returnsNotFound() throws Exception {
+        // Arrange
+        CreateTodoRequest request = new CreateTodoRequest("Buy milk", "nonexistent@example.com");
+
+        // Act & Assert
+        mockMvc.perform(post("/api/todos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").exists());
+    }
+
+    @Test
+    void testSetDone_nonExistentTodo_returnsNotFound() throws Exception {
+        // Arrange
+        String nonExistentId = "nonexistent-todo-id";
+
+        // Act & Assert
+        mockMvc.perform(patch("/api/todos/" + nonExistentId + "/done")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("true"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").value("Entity: " + nonExistentId + " was not found"));
+    }
 }
