@@ -41,7 +41,7 @@ PATCH http://localhost:8080/api/users/{{createUser.response.body.id}}/name
 Content-Type: application/json
 
 {
-    "name": "Monsieur Madeleine"
+    "name": "Monsieur le Maire"
 }
 
 
