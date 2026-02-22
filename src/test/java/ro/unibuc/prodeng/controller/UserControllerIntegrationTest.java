@@ -27,7 +27,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    public void cleanUp() {
+    void cleanUp() {
         userRepository.deleteAll();
     }
 
@@ -47,7 +47,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testCreateAndGetUser_validUserCreation_retrievesUserSuccessfully() throws Exception {
+    void testCreateAndGetUser_validUserCreation_retrievesUserSuccessfully() throws Exception {
         // Arrange
         String userId = createUser("Alice", "alice@example.com");
 
@@ -59,7 +59,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testGetAllUsers_multipleUsersExist_returnsAllUsers() throws Exception {
+    void testGetAllUsers_multipleUsersExist_returnsAllUsers() throws Exception {
         // Arrange
         createUser("Alice", "alice@example.com");
         createUser("Bob", "bob@example.com");
@@ -71,7 +71,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testUpdateUserWithPut_validUserData_updatesUserSuccessfully() throws Exception {
+    void testUpdateUserWithPut_validUserData_updatesUserSuccessfully() throws Exception {
         // Arrange
         String userId = createUser("Alice", "alice@example.com");
 
@@ -85,7 +85,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testChangeNameWithPatch_validNameChange_updatesNameSuccessfully() throws Exception {
+    void testChangeNameWithPatch_validNameChange_updatesNameSuccessfully() throws Exception {
         // Arrange
         String userId = createUser("Alice", "alice@example.com");
 
@@ -99,7 +99,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testDeleteUser_existingUser_deletesSuccessfully() throws Exception {
+    void testDeleteUser_existingUser_deletesSuccessfully() throws Exception {
         // Arrange
         String userId = createUser("Alice", "alice@example.com");
 
@@ -113,7 +113,7 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    public void testGetUserByEmail_validEmail_returnsUser() throws Exception {
+    void testGetUserByEmail_validEmail_returnsUser() throws Exception {
         // Arrange
         createUser("Alice", "alice@example.com");
 
