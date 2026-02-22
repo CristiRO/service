@@ -41,7 +41,7 @@ NOTE: for a live demo, please check out [this youtube video](https://youtu.be/-9
 * Create an IntelliJ run configuration for a Jar application
     * Add in the configuration the JAR path to the build folder `./build/libs/prod-eng-0.0.1-SNAPSHOT.jar`
 * Start the MongoDB container using Docker Compose
-    * ```docker-compose up -d mongo```
+    * ```./start_mongo_only.sh```
 * Run/debug your IntelliJ run configuration
 * Open in your browser:
     * http://localhost:8080/api/users
