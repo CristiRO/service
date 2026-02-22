@@ -46,7 +46,7 @@ NOTE: for a live demo, please check out [this youtube video](https://youtu.be/-9
 * Open in your browser:
     * http://localhost:8080/api/users
 
-# Deploy and run the code locally as docker instance
+# Deploy and run the code locally as Docker instance
 
 * Build the Docker image of the prod-eng service
     * ```make build```
