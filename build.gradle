@@ -111,7 +111,7 @@ task testE2E() {
 			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
 			args = [
 					'--plugin', 'pretty',
-					'--plugin', 'html:target/cucumber-report.html',
+					'--plugin', 'html:build/reports/cucumber/cucumber-report.html',
 					'--glue', 'ro.unibuc.prodeng.e2e',
 					'src/test/resources']
 		}
