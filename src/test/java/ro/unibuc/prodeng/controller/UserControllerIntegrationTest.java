@@ -123,4 +123,18 @@ class UserControllerIntegrationTest extends IntegrationTestBase {
                 .andExpect(jsonPath("$.name").value("Alice"))
                 .andExpect(jsonPath("$.email").value("alice@example.com"));
     }
+
+    @Test
+    void testCreateUser_duplicateEmail_returnsBadRequest() throws Exception {
+        // Arrange
+        createUser("Alice", "alice@example.com");
+
+        // Act & Assert
+        CreateUserRequest duplicateRequest = new CreateUserRequest("Bob", "alice@example.com");
+        mockMvc.perform(post("/api/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(duplicateRequest)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Email already exists: alice@example.com"));
+    }
 }
