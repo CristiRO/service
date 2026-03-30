@@ -67,7 +67,7 @@ pipeline {
             steps {
                 sh """
                     git tag ${env.IMAGE_TAG}
-                    git push https://${GITHUB_TOKEN}@github.com/CristiRO/service.git ${env.IMAGE_TAG}
+                    git push https://${GITHUB_TOKEN_PSW}@github.com/CristiRO/service.git ${env.IMAGE_TAG}
                 """
             }
         }
