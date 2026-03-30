@@ -50,25 +50,25 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${DOCKER_HUB_USERNAME}/hello-img:${env.IMAGE_TAG} ."
+                sh 'docker build -t $DOCKER_HUB_USERNAME/hello-img:$IMAGE_TAG .'
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                sh """
-                    echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_HUB_USERNAME} --password-stdin
-                    docker push ${DOCKER_HUB_USERNAME}/hello-img:${env.IMAGE_TAG}
-                """
+                sh '''
+                    echo $DOCKER_PASSWORD_PSW | docker login -u $DOCKER_HUB_USERNAME --password-stdin
+                    docker push $DOCKER_HUB_USERNAME/hello-img:$IMAGE_TAG
+                '''
             }
         }
 
         stage('Tag Release') {
             steps {
-                sh """
-                    git tag ${env.IMAGE_TAG}
-                    git push https://${GITHUB_TOKEN_PSW}@github.com/CristiRO/service.git ${env.IMAGE_TAG}
-                """
+                sh '''
+                    git tag $IMAGE_TAG
+                    git push https://$GITHUB_TOKEN_PSW@github.com/CristiRO/service.git $IMAGE_TAG
+                '''
             }
         }
     }
